@@ -4,7 +4,8 @@ const cli = require('inquirer')
 const figlet = require('figlet')
 const chalk = require('chalk')
 const clear = require('clear')
-const axios = require('axios')
+
+const SerieController = require('./src/controllers/SerieController')
 
 clear()
 console.log(
@@ -33,26 +34,7 @@ cli
     }])
     .then(answers => {
         if (answers.main_option === 1) {
-            axios.get('http://minhaserieapi.herokuapp.com/series')
-                .then(res => {
-                    let listchoices = [];
-                    res.data.results.map(serie => {
-                        let add = {
-                            value: serie.name,
-                            name: serie.title
-                        }
-                        listchoices.push(add)
-                    })
-                    cli.prompt([{
-                        type: "rawlist",
-                        name: "serie",
-                        message: "Escolha a serie: ",
-                        choices: listchoices
-                    }])
-                })
-                .catch(err => {
-                    console.log(err)
-                })
+            SerieController.top()
         }
     })
     .catch(err => {
