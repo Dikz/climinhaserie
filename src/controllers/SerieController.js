@@ -2,6 +2,7 @@ const cli = require('inquirer')
 const axios = require('axios')
 const chalk = require('chalk')
 const Table = require('cli-table')
+const Spinner = require('cli-spinner').Spinner
 
 let serieTable = new Table({
     style: {
@@ -10,8 +11,16 @@ let serieTable = new Table({
     }
 })
 
+let spinner = new Spinner('%s Buscando... ')
+spinner.setSpinnerString('⠋⠙⠹⠸⠼⠴⠦⠧⠏')
+
 class SeriePart {
+    constructor () {
+        this.spinner = spinner
+    }
+
     top() {
+        this.spinner.start()
         axios.get('http://minhaserieapi.herokuapp.com/series')
             .then(res => {
                 let listchoices = [];
@@ -25,11 +34,12 @@ class SeriePart {
                 cli.prompt([{
                         type: "list",
                         name: "serie",
-                        message: chalk.hex("#FFD762").bold("Escolha a serie: "),
+                        message: chalk.hex("#FFD762").bold("\nEscolha a serie: "),
                         choices: listchoices
                     }])
                     .then(res => {
                         //console.log(res.serie)
+                        this.spinner.start()
                         axios.get(`https://minhaserieapi.herokuapp.com/serie/${res.serie}`)
                             .then(res => {
                                 let serie = res.data;
@@ -54,10 +64,16 @@ class SeriePart {
                             .catch(err => {
                                 console.log(err)
                             })
+                            .then(() => {
+                                this.spinner.stop()
+                            })
                     })
             })
             .catch(err => {
                 console.log(err)
+            })
+            .then(() => {
+                this.spinner.stop()
             })
     }
 }
