@@ -1,6 +1,8 @@
 # CLI Minha Serie
 
-> Uma CLI de busca de series para teste da [minhaserieapi](https://github.com/devupacademy/minhaserieapi)
+> Uma CLI para busca de series, um projeto para testar o uso dos dados extraidos com: [minhaserieapi](https://github.com/devupacademy/minhaserieapi)
+
+![](https://i.imgur.com/KEUy7Al.gif)
 
 ###### Como usar ?
 
