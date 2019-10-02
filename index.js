@@ -36,6 +36,9 @@ cli
         if (answers.main_option === 1) {
             SerieController.top()
         }
+        if (answers.main_option === 2) {
+            SerieController.search()
+        }
     })
     .catch(err => {
         console.log(err)
