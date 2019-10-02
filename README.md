@@ -14,3 +14,8 @@ $ cd climinhaserie
 $ npm install
 $ sudo npm install -g
 ```
+Ou
+```sh
+$ npm i -g https://github.com/Dikz/climinhaserie.git
+$ minhaserie
+```
